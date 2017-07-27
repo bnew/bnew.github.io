@@ -6,6 +6,7 @@ var t;
 var anX = 0;
 var wood;
 var speaker;
+var floorHeight;
 
 function setup() {
   createCanvas(windowWidth, windowHeight,WEBGL);
@@ -18,7 +19,7 @@ tDisco = discoball;
     tFloor = capture;
     wood = loadImage("wood.jpg");
     speaker =loadImage("speakers.png");
-    
+    floorHeight = height/5;
 
 }
 
@@ -31,7 +32,7 @@ drawDiscoBall();
     drawDJBooth();
         spotlight();
 drawSpeaker(width/2,-height/5);
-    
+    crazyLights();
     //PULL CAMERA BACK!
 }
 function windowResized() {
@@ -62,8 +63,8 @@ function spinDiscoBall(){
 function drawDanceFloor(){
     fill(255);
     push();
-    translate(0,height/6);
-    rotateX(PI/4+1);
+    translate(0, floorHeight);
+    rotateX(-PI/2);
     //rotateY(PI/4);
     texture(tFloor);
     plane(width*3/4,height);
@@ -71,13 +72,17 @@ function drawDanceFloor(){
 }
 
 function drawDJBooth(){
-    translate(0,0,-height/2);
+    var boxHeight = 200;
+    push();
+    //todo: fix drawing origin so box sits on floor perfectly.
+    translate(0,(floorHeight/2),-height/2);
     texture(wood);
-    box(500,200,100);
+    box(500,boxHeight,100); 
+    pop();
 }
 
 function spotlight(){
-var locY = (mouseY / height - 0.5) *(-2);
+var locY = (.75  - 0.5) *(-2);
   var locX = (mouseX / width - 0.5) *2;
   //to set the light position,
   //think of the world's coordinate as:
@@ -86,11 +91,12 @@ var locY = (mouseY / height - 0.5) *(-2);
   //   |            |
   //   |            |
   // -1,-1---------1,-1
-  pointLight(250, 250, 250, mouseX, mouseY, locY);
+  pointLight(0, 100, 250, 3*width/4, height/4, -.5);
 }
 
 function crazyLights(){
     //draw a ton of point lights
+
 }
 
 function drawSpeaker(x, y){
@@ -100,8 +106,4 @@ function drawSpeaker(x, y){
     texture(speaker);    
     box(100,450,60);
     pop();
-}
-
-function randomColor(){
-    return (random(255),random(255),random(255));
 }

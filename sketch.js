@@ -7,6 +7,8 @@ var anX = 0;
 var wood;
 var speaker;
 var floorHeight;
+var back;
+var sega;
 
 function setup() {
   createCanvas(windowWidth, windowHeight,WEBGL);
@@ -20,6 +22,8 @@ tDisco = discoball;
     wood = loadImage("wood.jpg");
     speaker =loadImage("speakers.png");
     floorHeight = height/5;
+    back = -height/2;
+    sega = new dancer(0,0,0);
 
 }
 
@@ -31,8 +35,9 @@ drawDiscoBall();
     drawDanceFloor();
     drawDJBooth();
         spotlight();
-drawSpeaker(width/2,-height/5);
-    crazyLights();
+draw4Spekers();
+    sega.display();
+    //crazyLights();
     //PULL CAMERA BACK!
 }
 function windowResized() {
@@ -82,15 +87,6 @@ function drawDJBooth(){
 }
 
 function spotlight(){
-var locY = (.75  - 0.5) *(-2);
-  var locX = (mouseX / width - 0.5) *2;
-  //to set the light position,
-  //think of the world's coordinate as:
-  // -1,1 -------- 1,1
-  //   |            |
-  //   |            |
-  //   |            |
-  // -1,-1---------1,-1
   pointLight(0, 100, 250, 3*width/4, height/4, -.5);
 }
 
@@ -99,11 +95,45 @@ function crazyLights(){
 
 }
 
-function drawSpeaker(x, y){
+function draw4Spekers(){
+    var widthM = .4;
+    drawSpeaker(-width*widthM,0,-back);
+    drawSpeaker(width*widthM,0,-back);
+    drawSpeaker(width*widthM,0,back);
+    drawSpeaker(-width*widthM,0,back);
+
+}
+
+function drawSpeaker(x, y, z){
     push();
     fill(0);
-    translate(x,y,-height/2);
+    translate(x,y,z);
     texture(speaker);    
-    box(100,450,60);
+    box(100,400,60);
     pop();
+}
+
+
+function dancer(x,y,z, d){
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.img = loadImage("dancer.png");
+    this.direction = 1;
+    this.timer = 0;
+    
+    this.display = function(){
+        var d = this.img;
+        fill(0);
+        texture(this.img);
+        push();
+        translate(x,y,z);
+        plane(this.direction*d.width,d.height);
+        pop();
+        this.timer++;
+        if(this.timer == 10){
+        this.direction = this.direction*-1;
+            this.timer = 0;
+        }
+    }
 }

@@ -75,6 +75,19 @@ function windowResized() {
 }
 /// need an ellipse, a triangle, custom shape
 
+function deviceShaken(){
+    for (var i = 0; i < squiggles.length; i++){
+        if (squiggles[i].xSpeed() == 0) squiggles[i].xSpeed() = squiggles[i].speed;
+        if (squiggles[i].ySpeed() == 0) squiggles[i].ySpeed() = squiggles[i].speed;
+        squiggles[i].xSpeed() = squiggles[i].xSpeed()*2;
+        squiggles[i].ySpeed() = squiggles[i].ySpeed()*2;
+        squiggles[i].move();
+        squiggles[i].display();
+    }
+    
+}
+
+
 function squiggle(startX, endX){
     if(startX == undefined){
         startX = 0;

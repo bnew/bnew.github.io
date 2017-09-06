@@ -9,6 +9,12 @@ var speaker;
 var floorHeight;
 var back;
 var sega;
+var napVid;
+function preload(){
+napVid = createVideo("napVid.mov");
+  napVid.hide();
+  napVid.loop();
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight,WEBGL);
@@ -25,6 +31,7 @@ tDisco = discoball;
     back = -height/2;
     sega = new dancer(0,0,0);
 
+showMeGrids();
 }
 
 function draw() {
@@ -37,6 +44,7 @@ drawDiscoBall();
         spotlight();
 draw4Spekers();
     sega.display();
+    drawScreen();
     //crazyLights();
     //PULL CAMERA BACK!
 }
@@ -114,6 +122,25 @@ function drawSpeaker(x, y, z){
 }
 
 
+function drawScreen(){
+    push();
+    translate(-width/2,0);
+    rotateY(PI/2);
+    texture(napVid);
+    plane(800,450); //aspect ratio!
+    pop();
+}
+
+function showMeGrids(){
+    fill(255,0,0);
+    plane(width);
+    push();
+    rotateY(PI/2);
+    plane(height);
+    pop();
+}
+
+
 function dancer(x,y,z, d){
     this.x = x;
     this.y = y;
@@ -126,6 +153,8 @@ function dancer(x,y,z, d){
         var d = this.img;
         fill(0);
         texture(this.img);
+        
+        
         push();
         translate(x,y,z);
         plane(this.direction*d.width,d.height);

@@ -1,8 +1,10 @@
 //sin test
 var sizeX;
 var sizeY;
-var sizeIncreaseRate = 4;
-var maxIncrement = 10;
+var velocity = 4;
+var maxVelocity = 10;
+var minVelocity = 1;
+
 function setup(){
     createCanvas(windowWidth,windowHeight);
     sizeX = 1;
@@ -15,19 +17,19 @@ function setup(){
 function draw(){
     background(255);
     stroke(0);
-    strokeWeight(sizeIncreaseRate)
+    strokeWeight(velocity)
     rectMode(CENTER);
 
     rect(width/2,height/2,sizeX,sizeY);
-    sizeX+= (xIncrement*sizeIncreaseRate);
-    sizeY+= sizeIncreaseRate;
+    sizeX+= (xIncrement*velocity);
+    sizeY+= velocity;
     if(sizeY > height || sizeX > width) 
         {
         sizeX = 1;
         sizeY = 1;
         }
-    sizeIncreaseRate = map(sin(frameCount*.1),-1,1,1,maxIncrement);
-    print(sizeIncreaseRate);
+    velocity = map(sin(frameCount*.1),-1,1,minVelocity,maxVelocity);
+    print(velocity);
 }
 
 function randomColor(){

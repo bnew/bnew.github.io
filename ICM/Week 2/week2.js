@@ -42,10 +42,12 @@ function draw(){
     rectMode(CENTER);
     noFill();
     
+    push()
     shearX(map(mouseX,0,width,0,TWO_PI))
     shearX(radians(rotationY))
 
     rect(width/2,height/2,sizeX,sizeY);
+    pop()
     
     sizeX+= (xIncrement*velocity);
     sizeY+= velocity;

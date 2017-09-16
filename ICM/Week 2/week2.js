@@ -43,7 +43,7 @@ function draw(){
     noFill();
     
     shearX(map(mouseX,0,width,0,TWO_PI))
-    shearX(radians(rotationX))
+    shearX(radians(rotationY))
 
     rect(width/2,height/2,sizeX,sizeY);
     

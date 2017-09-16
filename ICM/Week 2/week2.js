@@ -1,35 +1,57 @@
 //sin test
 var sizeX;
 var sizeY;
-var velocity = 4;
-var maxVelocity = 10;
-var minVelocity = 1;
+var velocity = 1;
+var maxVelocity = 1;
+var minVelocity = -1;
+var velocityMultiplier = 10;
+
+var translateDivider = 1;
+
+var minSize = 1;
+var lineWidth = 1;
+//var maxSize;
 
 function setup(){
     createCanvas(windowWidth,windowHeight);
     sizeX = 1;
     sizeY = 1;
-    noFill();
     xIncrement = width/height;
+    //frameRate(10);
 
 }
 
 function draw(){
-    background(255);
-    stroke(0);
-    strokeWeight(velocity)
-    rectMode(CENTER);
+    //push()
+    //translate(map(mouseX, 0,width, -width, width),map(mouseY, 0,height, -height, height))
+    //background(255);
+    stroke(random(255),random(255),random(255));
+    lineWidth = abs(velocity);
+    
+    strokeWeight(lineWidth)
+
+    
+    if(sizeY > height || sizeX > width ) //work here
+        {
+        sizeX = width;
+        sizeY = height;
+        }else if (sizeY <= 0 || sizeX <=0)
+        {
+        sizeX = minSize;
+        sizeY = minSize;
+        }
+        rectMode(CENTER);
+    noFill();
 
     rect(width/2,height/2,sizeX,sizeY);
     sizeX+= (xIncrement*velocity);
     sizeY+= velocity;
-    if(sizeY > height || sizeX > width) 
-        {
-        sizeX = 1;
-        sizeY = 1;
-        }
-    velocity = map(sin(frameCount*.1),-1,1,minVelocity,maxVelocity);
-    print(velocity);
+    
+    velocity = getVelocity()*velocityMultiplier;
+    //pop()
+    //draw a box to hold debug info on top right
+    showDebugInfo()
+
 }
 
 function randomColor(){
@@ -37,5 +59,22 @@ function randomColor(){
 }
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-    size = width;
+    xIncrement = width/height;
+}
+
+function getVelocity(){
+    return map(sin(frameCount*.010),-1,1,minVelocity,maxVelocity)
+}
+
+function mouseClicked(){
+    background(255)
+}
+
+function showDebugInfo(){
+    fill(0)
+    noStroke()
+    rectMode(CORNERS)
+    rect(0,0,200,100)
+    fill(255)
+    text(" velocity:"+velocity+"\n Stroke "+lineWidth+"\n sizeX"+sizeX+"\n sizeY"+sizeY,10,10) //velocity, stroke width, size x, size y
 }

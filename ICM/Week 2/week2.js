@@ -22,9 +22,7 @@ function setup(){
 }
 
 function draw(){
-    //push()
-    //translate(map(mouseX, 0,width, -width, width),map(mouseY, 0,height, -height, height))
-    //background(255);
+
     stroke(random(255),random(255),random(255));
     lineWidth = abs(velocity);
     
@@ -40,17 +38,21 @@ function draw(){
         sizeX = minSize;
         sizeY = minSize;
         }
-        rectMode(CENTER);
+    
+    rectMode(CENTER);
     noFill();
+    
+    shearX(map(mouseX,0,width,0,TWO_PI))
+    shearX(radians(rotationX))
 
     rect(width/2,height/2,sizeX,sizeY);
+    
     sizeX+= (xIncrement*velocity);
     sizeY+= velocity;
     
     velocity = getVelocity()*velocityMultiplier;
-    //pop()
-    //draw a box to hold debug info on top right
-    showDebugInfo()
+    
+    //showDebugInfo()
 
 }
 
@@ -66,7 +68,7 @@ function getVelocity(){
     return map(sin(frameCount*.010),-1,1,minVelocity,maxVelocity)
 }
 
-function mouseClicked(){
+function touchStarted(){
     background(255)
 }
 

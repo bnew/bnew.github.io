@@ -98,3 +98,11 @@ function mobileDetected(){
     else
         return false;
 }
+
+function touchStarted(){
+    fullscreen(true);
+}
+
+function mousePressed(){
+    fullscreen(true);
+}

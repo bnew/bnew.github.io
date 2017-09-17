@@ -10,6 +10,9 @@ var translateDivider = 1;
 
 var minSize = 1;
 var lineWidth = 1;
+
+var buffer = 1.75; //for max size of the rectangled
+
 //var maxSize;
 
 function setup(){
@@ -28,11 +31,10 @@ function draw(){
     
     strokeWeight(lineWidth)
 
-    
-    if(sizeY > height || sizeX > width ) //work here
+    if(sizeY > height*buffer || sizeX > width*buffer ) //
         {
-        sizeX = width;
-        sizeY = height;
+        sizeX = width*buffer;
+        sizeY = height*buffer;
         }else if (sizeY <= 0 || sizeX <=0)
         {
         sizeX = minSize;
@@ -43,7 +45,9 @@ function draw(){
     noFill();
     
     push()
-    shearX(map(mouseX,0,width,0,TWO_PI))
+    if(!mobileDetected())
+    shearX(map(mouseX,0,width,0,TWO_PI)) //ideally there'd be mobile detection to only apply one of these transforms
+    else
     shearX(radians(rotationY))
 
     rect(width/2,height/2,sizeX,sizeY);
@@ -70,7 +74,7 @@ function getVelocity(){
     return map(sin(frameCount*.010),-1,1,minVelocity,maxVelocity)
 }
 
-function touchStarted(){
+function keyPressed(){
     background(255)
 }
 
@@ -81,4 +85,16 @@ function showDebugInfo(){
     rect(0,0,200,100)
     fill(255)
     text(" velocity:"+velocity+"\n Stroke "+lineWidth+"\n sizeX"+sizeX+"\n sizeY"+sizeY,10,10) //velocity, stroke width, size x, size y
+}
+
+function shearMode(){
+    //could cycle through various options for shearing
+    
+}
+
+function mobileDetected(){
+    if (width<800)
+        return true;
+    else
+        return false;
 }

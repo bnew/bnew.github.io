@@ -11,14 +11,12 @@ var translateDivider = 1;
 var minSize = 1;
 var lineWidth = 1;
 
-var buffer = 1.75; //for max size of the rectangled
-
-//var maxSize;
+var buffer = 1; //a multiplier on the rectangles dimensions to set its max size 
 
 function setup(){
     createCanvas(windowWidth,windowHeight);
-    sizeX = 1;
-    sizeY = 1;
+    sizeX = 10;
+    sizeY = 10;
     xIncrement = width/height;
     //frameRate(10);
 
@@ -26,7 +24,7 @@ function setup(){
 
 function draw(){
 
-    stroke(random(255),random(255),random(255));
+    stroke(randomColor());
     lineWidth = abs(velocity);
     
     strokeWeight(lineWidth)
@@ -63,7 +61,7 @@ function draw(){
 }
 
 function randomColor(){
-    return(random(255),random(255),random(255));
+    return color(random(255),random(255),random(255));
 }
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);

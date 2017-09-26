@@ -1,21 +1,4 @@
-/*making a mouseover button
-
-an object of a given shape
-detect when mouse x and y is within the bouse of the shape
-
-
-mouse over menu
-
-a mouseover area
-when mouse is within the bounds of the area
-draw a new shape for the menu
-and have a button to close
-
-*/
-
 var capture;
-var filters = ["THRESHOLD","GRAY","OPAQUE","INVERT","POSTERIZE","DILATE"];
-
 var videoSizeY;
 var videoSizeX;
 var spliceX;
@@ -60,7 +43,7 @@ function draw(){
         textSize(32);
         fill(255,0,0);
         textStyle(BOLD);
-        text("select a body part \npress a key to reset", textX, textY)
+        text("select a body part\npress a key to reset", textX, textY)
         textX += textVelocityX;
         textY += textVelocityY;
         if(textX > capture.width || textX <0) textVelocityX = textVelocityX *-1;
@@ -72,7 +55,7 @@ function draw(){
         for (var x =0; x <= width; x+= videoSizeX){
             push();
             if(flipVideo && !pattern1){
-                translate(width,0)
+                translate(width-videoSizeX,0)
                 scale(-1,1)
                 
             }
@@ -85,11 +68,7 @@ function draw(){
     drawButton();
     drawSlider();
     }
-/*
-    if(frameCount%1000){
-        filter(filters[int(random(filters.length))])
-    }
-  */
+
     
 }
 
@@ -154,9 +133,7 @@ var lineEndPosition = width - lineStartPosition;
     noStroke();
     
   }
-  
-  // Find Pix color, just for fun.
-  
+    
   fill(0);
   stroke(255,244,233);
   line(lineStartPosition,elY, lineEndPosition, elY);
